@@ -1,0 +1,58 @@
+import tkinter as tk
+import random
+from PIL import ImageTk,Image
+import pygame
+
+root = tk.Tk()
+root.title("Roll Dice Application")
+root.geometry("450x600")
+
+pygame.mixer.init()
+
+def play_dice_sound():
+	pygame.mixer.music.load("Rolling Dice - Sound Effect.mp3")
+	pygame.mixer.music.play(loops = 0)
+
+def get_dice_img(dice_num): 
+	if dice_num == 1:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice1.png"))
+	elif dice_num == 2:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice2.png"))
+	elif dice_num == 3:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice3.png"))
+	elif dice_num == 4:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice4.png"))
+	elif dice_num == 5:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice5.png"))
+	else:
+		dice_img = ImageTk.PhotoImage(Image.open("Dice6.png"))
+
+	return dice_img 
+
+def roll_dice():
+	play_dice_sound()
+	num_dice1 = random.randint(1, 6)
+	num_dice2 = random.randint(1, 6)
+	print("dice1 = "+str(num_dice1))
+	print("dice2 = "+str(num_dice2))
+	dice_img1 = get_dice_img(num_dice1)
+	dice_img2 = get_dice_img(num_dice2)
+	dice1.config(image = dice_img1)
+	dice1.image = dice_img1
+	dice2.config(image = dice_img2)
+	dice2.image = dice_img2
+
+img = ImageTk.PhotoImage(Image.open("Dice1.png"))
+
+global dice1
+dice1 = tk.Label(root,image = img)
+dice1.pack(pady = 10)
+
+global dice2
+dice2 = tk.Label(root, image = img)
+dice2.pack(pady = 10)
+
+roll_dice_button = tk.Button(root, text = "Roll Dice!", command = roll_dice)
+roll_dice_button.pack(pady = 10)
+
+root.mainloop()
